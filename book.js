@@ -1,17 +1,20 @@
 const searchbook = () => {
   const searchfield = document.getElementById('search-field');
   const searchtext = searchfield.value;
-  // if(searchtext.length === 0){
-    
-  // }
-  // console.log(searchtext);
   searchfield.value = '';
-  const url = `https://openlibrary.org/search.json?q=${searchtext}`;
-  fetch(url)
-    .then(res => res.json())
-    .then(data => displaybookresult(data.docs))
+  if (searchtext === '') {
+        const foundBooks = document.getElementById('foundBooks');
+        foundBooks.innerHTML = ` <h1 class="text-red">Please Search Valid Books</h1>`;
+    } else {
+        const url = `https://openlibrary.org/search.json?q=${searchtext}`;
+        fetch(url)
+            .then(res => res.json())
+            .then(data => displaybookresult(data.docs))
+    }
 
 }
+// book found 
+
 // display book info 
 const displaybookresult = (docs) => {
   const searchresult = document.getElementById('search-result');
